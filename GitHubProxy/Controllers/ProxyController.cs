@@ -1,10 +1,13 @@
-﻿using MediatR;
+﻿using Core;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GitHubProxy.Controllers;
 
 public class ProxyController : Controller
 {
+    private const string SiteUrl = "github.com";
+
     private readonly IMediator mediator;
 
     public ProxyController(IMediator mediator)
@@ -14,6 +17,10 @@ public class ProxyController : Controller
 
     public async Task<IActionResult> Handle(string path)
     {
-        return null;
+        var originalUrl = $"https://{SiteUrl}/{path}";
+
+        var resultContent = await mediator.Send(new ModifyContentCommand { Url = originalUrl });
+
+        return Content(resultContent, "text/html");
     }
 }

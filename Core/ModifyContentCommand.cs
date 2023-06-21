@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Core.ContentReplacement;
+namespace Core;
 
 public class ModifyContentCommand : IRequest<string>
 {
-    public string Content { get; set; }
+    public string Url { get; set; }
 }
