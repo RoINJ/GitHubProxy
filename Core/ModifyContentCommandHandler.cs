@@ -1,14 +1,20 @@
-﻿using Core.PageDownload;
+﻿using Core.ContentReplacement;
+using Core.PageDownload;
 using MediatR;
+using System.Text.RegularExpressions;
 
 namespace Core;
 
 public class ModifyContentCommandHandler : IRequestHandler<ModifyContentCommand, string>
 {
+    private readonly IContentModifier contentModifier;
     private readonly IPageDownloader pageDownloader;
 
-    public ModifyContentCommandHandler(IPageDownloader pageDownloader)
+    public ModifyContentCommandHandler(
+        IContentModifier contentModifier,
+        IPageDownloader pageDownloader)
     {
+        this.contentModifier = contentModifier;
         this.pageDownloader = pageDownloader;
     }
 
@@ -17,8 +23,10 @@ public class ModifyContentCommandHandler : IRequestHandler<ModifyContentCommand,
         ArgumentNullException.ThrowIfNull(request, nameof(request));
 
         var httpContent = await pageDownloader.GetPage(request.Url);
-        var content = await httpContent.ReadAsStringAsync();
+        var content = await httpContent.ReadAsStringAsync(cancellationToken);
 
-        return content;
+        var modifiedContent = contentModifier.ModifyContent(content);
+
+        return modifiedContent;
     }
 }

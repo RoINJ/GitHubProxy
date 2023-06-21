@@ -1,6 +1,7 @@
 ﻿using Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace GitHubProxy.Controllers;
 
@@ -20,7 +21,8 @@ public class ProxyController : Controller
         var originalUrl = $"https://{SiteUrl}/{path}";
 
         var resultContent = await mediator.Send(new ModifyContentCommand { Url = originalUrl });
+        var withReplacedLinks = Regex.Replace(resultContent, $"https://(www)*{SiteUrl}", $"https://{ControllerContext.HttpContext.Request.Host}");
 
-        return Content(resultContent, "text/html");
+        return Content(withReplacedLinks, "text/html");
     }
 }

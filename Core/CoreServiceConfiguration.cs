@@ -1,4 +1,5 @@
-﻿using Core.PageDownload;
+﻿using Core.ContentReplacement;
+using Core.PageDownload;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core
@@ -9,7 +10,8 @@ namespace Core
         {
             services
                 .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CoreServiceConfiguration).Assembly))
-                .AddSingleton<IPageDownloader, PageDownloader>();
+                .AddSingleton<IPageDownloader, PageDownloader>()
+                .AddScoped<IContentModifier, ContentModifier>();
 
             return services;
         }
