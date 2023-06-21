@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubProxy", "GitHubProxy\GitHubProxy.csproj", "{A75E44D6-F01E-4ABD-969E-2C179E9852FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{DFC2ACD5-F57B-471A-AD24-6A07033D3698}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A75E44D6-F01E-4ABD-969E-2C179E9852FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A75E44D6-F01E-4ABD-969E-2C179E9852FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A75E44D6-F01E-4ABD-969E-2C179E9852FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC2ACD5-F57B-471A-AD24-6A07033D3698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC2ACD5-F57B-471A-AD24-6A07033D3698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC2ACD5-F57B-471A-AD24-6A07033D3698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC2ACD5-F57B-471A-AD24-6A07033D3698}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

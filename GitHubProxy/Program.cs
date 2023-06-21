@@ -1,3 +1,5 @@
+using Core.ContentReplacement;
+
 namespace GitHubProxy
 {
     public class Program
@@ -6,22 +8,30 @@ namespace GitHubProxy
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
-            builder.Services.AddControllers();
+            ConfigureServices(builder.Services);
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
+            app
+                .UseHttpsRedirection()
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                        name: "proxy",
+                        pattern: "{*path}",
+                        defaults: new { controller = "Proxy", action = "Handle" });
+                });
 
             app.Run();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services
+                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ModifyContentCommand).Assembly))
+                .AddHttpClient()
+                .AddControllers();
         }
     }
 }
